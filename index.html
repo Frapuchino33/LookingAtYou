@@ -3,15 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Watcher</title>
-
-<!-- Google AdSense (solo reemplaza con tu ID) -->
-<script data-ad-client="ca-pub-XXXXXXXXXXXX" async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-
+<title>Curiosity killed the cat...</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
-
 body {
   margin: 0;
   padding: 0;
@@ -21,8 +14,7 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  overflow: hidden;
-  font-family: 'Courier New', monospace;
+  font-family: 'Arial', sans-serif;
 }
 
 .eye {
@@ -117,25 +109,17 @@ body {
   padding: 20px 50px;
   border-radius: 20px;
   background-color: rgba(255,255,255,0.05);
-  margin-bottom: 40px;
-  transition: all 0.2s ease;
+  margin-bottom: 10px;
   font-family: 'Courier New', monospace;
+  transition: all 0.2s ease;
 }
 
-.creepy-text {
-  font-size: 3em;
-  color: #ff0000;
-  text-shadow: 0 0 10px #ff0000, 0 0 30px #fff;
-  display: none;
-  text-align: center;
-  animation: appear 2s forwards;
-  font-family: 'Creepster', cursive;
+.phrase {
+  font-size: 1.5em;
+  color: #fff;
+  margin-top: 10px;
 }
 
-@keyframes appear {
-  0% { opacity: 0; transform: scale(0.8) rotate(-5deg); }
-  100% { opacity: 1; transform: scale(1) rotate(0deg); }
-}
 </style>
 </head>
 <body>
@@ -154,29 +138,18 @@ body {
 </div>
 
 <div class="counter" id="counter">100.00</div>
-<div class="creepy-text" id="creepyText">I see you...</div>
-
-<!-- Bloque de anuncio responsive -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-XXXXXXXXXXXX"
-     data-ad-slot="YYYYYYYYYY"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+<div class="phrase">Curiosity killed the cat</div>
 
 <script>
 let time = 100.0;
 const counter = document.getElementById('counter');
-const message = document.getElementById('creepyText');
 const eye = document.querySelector('.eye');
 const irisContainer = document.querySelector('.iris-container');
-const iris = document.querySelector('.iris');
 const pupil = document.querySelector('.pupil');
 const reflection = document.querySelector('.reflection');
 const veins = document.querySelectorAll('.vein');
+
+let flash = false;
 
 // Movimiento ojo izquierda-derecha cada 10s
 setInterval(() => {
@@ -188,11 +161,11 @@ setInterval(() => {
 const interval = setInterval(() => {
   counter.textContent = time.toFixed(2);
 
-  // Últimos 5 segundos: parpadeo lento alternando rojo/blanco
+  // Últimos 5 segundos: parpadeo rojo/blanco cada 500ms
   if(time <= 5 && time > 0){
-    const s = Math.ceil(time); // 5,4,3,2,1
-    counter.style.color = (s % 2 === 0) ? '#fff' : '#ff0000';
-    counter.style.textShadow = (s % 2 === 0) ? '0 0 10px #fff' : '0 0 10px #ff0000';
+    flash = !flash;
+    counter.style.color = flash ? '#ff0000' : '#fff';
+    counter.style.textShadow = flash ? '0 0 10px #ff0000' : '0 0 10px #fff';
   }
 
   // Últimos 10 segundos: pupila vibra
@@ -207,20 +180,13 @@ const interval = setInterval(() => {
 
   if(time <= 0){
     clearInterval(interval);
-    counter.style.display = 'none';
-
-    // Ojo miedo + explosión
-    iris.style.background = 'radial-gradient(circle at 35% 35%, #555 0%, #000 80%)';
-    reflection.style.width = '6px';
-    reflection.style.height = '6px';
-    eye.style.transform = 'scale(3) rotate(20deg)';
+    // Animación de apagado
     eye.style.opacity = '0';
-
-    setTimeout(() => { message.style.display = 'block'; }, 800);
+    counter.style.opacity = '0';
   }
 }, 10);
 
-// Movimiento interno aleatorio iris, reflejo y venas
+// Movimiento interno aleatorio iris y venas
 function jitterInside(){
   const maxOffset = 4;
   irisContainer.style.transform = `translate(calc(-50% + ${Math.random()*maxOffset*2 - maxOffset}px), calc(-50% + ${Math.random()*maxOffset*2 - maxOffset}px))`;
