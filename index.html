@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Watcher</title>
+
+<!-- Google AdSense (solo reemplaza con tu ID) -->
+<script data-ad-client="ca-pub-XXXXXXXXXXXX" async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Courier New', monospace;
+}
+
+.eye {
+  position: relative;
+  width: 300px;
+  height: 150px;
+  background: radial-gradient(circle at 50% 50%, #fff 0%, #ccc 30%, #000 100%);
+  border: 3px solid #fff;
+  border-radius: 50% / 50%;
+  box-shadow: 0 0 30px #fff;
+  margin-bottom: 50px;
+  animation: float 4s infinite ease-in-out alternate;
+  overflow: hidden;
+  transition: all 0.5s ease;
+}
+
+.iris-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 90px;
+  height: 90px;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease;
+}
+
+.iris {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 35% 35%, #222 0%, #000 80%);
+  border-radius: 50%;
+  box-shadow: 0 0 15px #000 inset;
+  transition: all 0.3s ease;
+}
+
+.pupil {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 35px;
+  height: 35px;
+  background: #000;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px #000;
+  animation: blink 4s infinite;
+  transition: all 0.2s ease;
+}
+
+.reflection {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  top: 35%;
+  left: 45%;
+  background: rgba(255,255,255,0.8);
+  border-radius: 50%;
+  filter: blur(1.5px);
+  transition: all 0.3s ease;
+}
+
+.vein {
+  position: absolute;
+  width: 2px;
+  background: rgba(255,0,0,0.2);
+  border-radius: 50%;
+  transform-origin: top center;
+}
+
+.vein1 { height: 50%; top: 0; left: 20%; transform: rotate(25deg);}
+.vein2 { height: 40%; top: 10%; left: 70%; transform: rotate(-35deg);}
+.vein3 { height: 45%; top: 5%; left: 50%; transform: rotate(10deg);}
+.vein4 { height: 35%; top: 15%; left: 35%; transform: rotate(-15deg);}
+
+@keyframes float {
+  0% { transform: translateY(0px) rotate(-2deg); }
+  50% { transform: translateY(-12px) rotate(2deg); }
+  100% { transform: translateY(0px) rotate(-2deg); }
+}
+
+@keyframes blink {
+  0%, 95%, 100% { transform: translate(-50%, -50%) scaleY(1); }
+  96%, 97% { transform: translate(-50%, -50%) scaleY(0.05); }
+}
+
+.counter {
+  font-size: 5em;
+  color: #fff;
+  text-shadow: 0 0 10px #fff;
+  border: 2px solid #fff;
+  padding: 20px 50px;
+  border-radius: 20px;
+  background-color: rgba(255,255,255,0.05);
+  margin-bottom: 40px;
+  transition: all 0.2s ease;
+  font-family: 'Courier New', monospace;
+}
+
+.creepy-text {
+  font-size: 3em;
+  color: #ff0000;
+  text-shadow: 0 0 10px #ff0000, 0 0 30px #fff;
+  display: none;
+  text-align: center;
+  animation: appear 2s forwards;
+  font-family: 'Creepster', cursive;
+}
+
+@keyframes appear {
+  0% { opacity: 0; transform: scale(0.8) rotate(-5deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+</style>
+</head>
+<body>
+
+<div class="eye">
+  <div class="vein vein1"></div>
+  <div class="vein vein2"></div>
+  <div class="vein vein3"></div>
+  <div class="vein vein4"></div>
+
+  <div class="iris-container">
+    <div class="iris"></div>
+    <div class="pupil"></div>
+    <div class="reflection"></div>
+  </div>
+</div>
+
+<div class="counter" id="counter">100.00</div>
+<div class="creepy-text" id="creepyText">I see you...</div>
+
+<!-- Bloque de anuncio responsive -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-XXXXXXXXXXXX"
+     data-ad-slot="YYYYYYYYYY"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<script>
+let time = 100.0;
+const counter = document.getElementById('counter');
+const message = document.getElementById('creepyText');
+const eye = document.querySelector('.eye');
+const irisContainer = document.querySelector('.iris-container');
+const iris = document.querySelector('.iris');
+const pupil = document.querySelector('.pupil');
+const reflection = document.querySelector('.reflection');
+const veins = document.querySelectorAll('.vein');
+
+// Movimiento ojo izquierda-derecha cada 10s
+setInterval(() => {
+  irisContainer.style.left = '40%';
+  setTimeout(() => { irisContainer.style.left = '60%'; }, 5000);
+}, 10000);
+
+// Contador
+const interval = setInterval(() => {
+  counter.textContent = time.toFixed(2);
+
+  // Últimos 5 segundos: parpadeo lento alternando rojo/blanco
+  if(time <= 5 && time > 0){
+    const s = Math.ceil(time); // 5,4,3,2,1
+    counter.style.color = (s % 2 === 0) ? '#fff' : '#ff0000';
+    counter.style.textShadow = (s % 2 === 0) ? '0 0 10px #fff' : '0 0 10px #ff0000';
+  }
+
+  // Últimos 10 segundos: pupila vibra
+  if(time <= 10 && time > 0){
+    const offset = 2;
+    pupil.style.transform = `translate(calc(-50% + ${Math.random()*offset*2 - offset}px), calc(-50% + ${Math.random()*offset*2 - offset}px))`;
+  } else {
+    pupil.style.transform = 'translate(-50%, -50%)';
+  }
+
+  time -= 0.01;
+
+  if(time <= 0){
+    clearInterval(interval);
+    counter.style.display = 'none';
+
+    // Ojo miedo + explosión
+    iris.style.background = 'radial-gradient(circle at 35% 35%, #555 0%, #000 80%)';
+    reflection.style.width = '6px';
+    reflection.style.height = '6px';
+    eye.style.transform = 'scale(3) rotate(20deg)';
+    eye.style.opacity = '0';
+
+    setTimeout(() => { message.style.display = 'block'; }, 800);
+  }
+}, 10);
+
+// Movimiento interno aleatorio iris, reflejo y venas
+function jitterInside(){
+  const maxOffset = 4;
+  irisContainer.style.transform = `translate(calc(-50% + ${Math.random()*maxOffset*2 - maxOffset}px), calc(-50% + ${Math.random()*maxOffset*2 - maxOffset}px))`;
+  reflection.style.top = `${35 + (Math.random()*6-3)}%`;
+  reflection.style.left = `${45 + (Math.random()*6-3)}%`;
+  veins.forEach(v => {
+    v.style.transform = `rotate(${parseInt(v.style.transform.replace('rotate(','').replace('deg)','')) + (Math.random()*10-5)}deg)`;
+  });
+  setTimeout(jitterInside, 2000 + Math.random()*3000);
+}
+jitterInside();
+
+// Vibración ocasional ojo
+function shakeEye(){
+  const offset = 3;
+  const x = (Math.random()*offset*2 - offset)+'px';
+  const y = (Math.random()*offset*2 - offset)+'px';
+  eye.style.transform = `translate(${x},${y})`;
+  setTimeout(()=>{ eye.style.transform = ''; }, 100);
+}
+function randomShake(){
+  const t = 7000 + Math.random()*5000;
+  setTimeout(()=>{ shakeEye(); randomShake(); }, t);
+}
+randomShake();
+</script>
+
+</body>
+</html>
