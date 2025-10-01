@@ -3,7 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Curiosity killed the cat...</title>
+<title>PoorCat</title>
+
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3479002062482615"
+     crossorigin="anonymous"></script>
+
 <style>
 body {
   margin: 0;
@@ -118,8 +123,8 @@ body {
   font-size: 1.5em;
   color: #fff;
   margin-top: 10px;
+  font-family: Arial, sans-serif;
 }
-
 </style>
 </head>
 <body>
@@ -140,6 +145,15 @@ body {
 <div class="counter" id="counter">100.00</div>
 <div class="phrase">Curiosity killed the cat</div>
 
+<!-- Google AdSense banner -->
+<ins class="adsbygoogle"
+     style="display:block; width:300px; height:250px; margin-top:20px;"
+     data-ad-client="ca-pub-3479002062482615"
+     data-ad-slot="1234567890"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 <script>
 let time = 100.0;
 const counter = document.getElementById('counter');
@@ -151,7 +165,7 @@ const veins = document.querySelectorAll('.vein');
 
 let flash = false;
 
-// Movimiento ojo izquierda-derecha cada 10s
+// Ojo izquierda-derecha cada 10s
 setInterval(() => {
   irisContainer.style.left = '40%';
   setTimeout(() => { irisContainer.style.left = '60%'; }, 5000);
@@ -180,7 +194,6 @@ const interval = setInterval(() => {
 
   if(time <= 0){
     clearInterval(interval);
-    // Animación de apagado
     eye.style.opacity = '0';
     counter.style.opacity = '0';
   }
